@@ -9,9 +9,9 @@ framebuffer, and sends the framebuffer to the display.
 
 ## Result Display Image
 
-Place your OLED screen photo in this zone.
-
-![OLED result display](./images/oled-result.jpeg)
+<p align="center">
+  <img src="./images/oled-result.jpeg" alt="SSD1306 OLED result" width="500">
+</p>
 ```
 
 ![OLED result display](images/oled-result.jpg)
