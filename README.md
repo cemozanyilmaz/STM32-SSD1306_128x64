@@ -7,12 +7,6 @@ The SSD1306 display driver and bitmap font support are written for this
 project. The firmware initializes the OLED, writes text into a local
 framebuffer, and sends the framebuffer to the display.
 
-## Result Display Image
-
-<p align="left">
-  <img src="./images/oled-result.jpeg" alt="SSD1306 OLED result" width="200">
-</p>
-
 ## Features
 
 - STM32L476RG / NUCLEO-L476RG based project
@@ -95,10 +89,10 @@ to the display.
 
 The current example in `main.c` writes:
 
-```text
-SSD1306
-Example
-```
+<p align="left">
+  <img src="./images/oled-result.jpeg" alt="SSD1306 OLED result" width="200">
+</p>
+
 
 using `Font_7x10`.
 
