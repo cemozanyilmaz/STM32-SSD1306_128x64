@@ -14,13 +14,13 @@ Place your OLED screen photo in this zone.
 Suggested image path:
 
 ```text
-images/oled-result.jpg
+images/oled-result.jpeg
 ```
 
 When the image is added, this Markdown line will show it on GitHub:
 
 ```markdown
-![OLED result display](images/oled-result.jpg)
+![OLED result display](images/oled-result.jpeg)
 ```
 
 ![OLED result display](images/oled-result.jpg)
