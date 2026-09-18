@@ -12,7 +12,6 @@ framebuffer, and sends the framebuffer to the display.
 <p align="left">
   <img src="./images/oled-result.jpeg" alt="SSD1306 OLED result" width="200">
 </p>
-```
 
 ## Features
 
