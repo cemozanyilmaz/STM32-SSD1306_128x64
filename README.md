@@ -9,12 +9,10 @@ framebuffer, and sends the framebuffer to the display.
 
 ## Result Display Image
 
-<div align="left">
+<p align="left">
   <img src="./images/oled-result.jpeg" alt="SSD1306 OLED result" width="200">
-</div>
+</p>
 ```
-
-![OLED result display](images/oled-result.jpg)
 
 ## Features
 
