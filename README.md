@@ -69,8 +69,13 @@ Core/
     fonts.c                       Bitmap font data and glyph lookup
     i2c.c                         I2C initialization
     gpio.c                        GPIO initialization
+
 Drivers/                          STM32 HAL and CMSIS drivers
-    L476RG_SSD1306_128X64.ioc     STM32CubeMX project configuration
+images/
+  oled-result.jpeg                OLED test result
+
+L476RG_SSD1306_128X64.ioc         STM32CubeMX project configuration
+README.md
 ```
 
 ## How It Works
@@ -115,6 +120,117 @@ using `Font_7x10`.
 - `Core/Src/fonts.c`: bitmap font tables and glyph lookup.
 - `Core/Inc/fonts.h`: font structure, public font definitions, and glyph API.
 - `Core/Src/main.c`: example OLED initialization and text output.
+
+## Usage
+
+Include the SSD1306 driver header in your `main.c` file:
+
+```c
+#include "ssd1306.h"
+```
+
+After initializing the STM32 peripherals, initialize the display by passing the I2C handle used by the SSD1306:
+
+```c
+SSD1306_Init(&hi2c1);
+```
+
+The display can then be cleared, populated with pixels or text, and updated by transferring the framebuffer to the SSD1306.
+
+### Basic Example
+
+```c
+/* Initialize the SSD1306 display */
+SSD1306_Init(&hi2c1);
+
+/* Clear the framebuffer */
+SSD1306_Clear();
+
+/* Draw text */
+SSD1306_WriteString(39, 20, "SSD1306", &Font_7x10);
+SSD1306_WriteString(39, 34, "Example", &Font_7x10);
+
+/* Transfer the framebuffer to the display */
+SSD1306_UpdateScreen();
+```
+
+The display uses a framebuffer, so drawing functions modify the framebuffer first.  
+`SSD1306_UpdateScreen()` must be called whenever the modified framebuffer should be transferred to the OLED.
+
+### Drawing a Pixel
+
+Individual pixels can be controlled using:
+
+```c
+SSD1306_DrawPixel(10, 20, 1);
+```
+
+Use `1` to set the pixel and `0` to clear it:
+
+```c
+SSD1306_DrawPixel(10, 20, 0);
+```
+
+Call `SSD1306_UpdateScreen()` afterward to make the change visible on the display.
+
+### Writing a Character
+
+A single character can be rendered at a specific coordinate:
+
+```c
+SSD1306_WriteChar(10, 10, 'A', &Font_11x18);
+SSD1306_UpdateScreen();
+```
+
+### Writing a String
+
+Strings can be rendered by specifying the starting X/Y coordinates and font:
+
+```c
+SSD1306_WriteString(10, 10, "Hello", &Font_7x10);
+SSD1306_UpdateScreen();
+```
+
+The library currently provides the following bitmap font sizes:
+
+```text
+Font_6x8
+Font_6x10
+Font_7x10
+Font_8x13
+Font_11x18
+Font_16x26
+```
+
+### Typical `main.c` Structure
+
+A minimal application can be structured as follows:
+
+```c
+int main(void)
+{
+    HAL_Init();
+    SystemClock_Config();
+
+    MX_GPIO_Init();
+    MX_I2C1_Init();
+
+    SSD1306_Init(&hi2c1);
+
+    SSD1306_Clear();
+
+    SSD1306_WriteString(39, 20, "SSD1306", &Font_7x10);
+    SSD1306_WriteString(39, 34, "Example", &Font_7x10);
+
+    SSD1306_UpdateScreen();
+
+    while (1)
+    {
+    }
+}
+```
+
+> **Note:** `MX_I2C1_Init()` and the I2C handle name may differ depending on the STM32 and I2C peripheral used in your project. Pass the corresponding `I2C_HandleTypeDef` to `SSD1306_Init()`.
 
 ## Notes
 
